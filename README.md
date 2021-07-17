@@ -4,7 +4,15 @@ A thin Python wrapper around the (hidden) CurseForge API.
 
 > 1.0.0 adds native support for the Minecraft interface, future interfaces planned (or can be PR'd if desired)
 
-See the ``examples`` folder for basic usage of the API.
+## Basic Usage
+
+```python
+import curseforge
+mc = curseforge.Minecraft()
+jei = mc.get_addon(238222)
+print(jei.display_name)
+```
+More examples can be found under the ``examples/`` folder.
 
 ## Installation
 This wrapper is available on PyPI:

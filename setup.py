@@ -1,6 +1,6 @@
 from setuptools import setup
 
-version = "1.0.0-2"
+version = "1.0.0-3"
 
 import os
 
@@ -23,7 +23,7 @@ setup(
     long_description_content_type='text/markdown',
     python_requires='>=3.8.0',
     classifiers=[
-        "Development Status :: 2 - Pre-Alpha",
+        "Development Status :: 5 - Stable",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Natural Language :: English",
