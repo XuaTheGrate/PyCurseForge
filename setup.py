@@ -1,8 +1,5 @@
 from setuptools import setup
 
-#with open("requirements.txt") as f:
-#    requirements = f.readlines()
-
 version = "1.0.0"
 
 with open("README.md") as f:
@@ -10,6 +7,7 @@ with open("README.md") as f:
 
 setup(
     name='PyCurseForge',
+    install_requires=['requests==2.26.0'],
     author='XuaTheGrate',
     url='https://github.com/XuaTheGrate/PyCurseForge',
     version=version,
