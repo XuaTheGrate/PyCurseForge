@@ -24,13 +24,15 @@ DEALINGS IN THE SOFTWARE.
 from __future__ import annotations
 
 from typing import Any, Generic, NamedTuple, TypeVar
+from urllib.parse import urlencode
 
 import requests
 
+from .enums import SortType
 from .models.addon import Addon
 from .models.category import Category
 
-__all__ = ["Minecraft"]
+__all__ = ["Minecraft", "custom_interface"]
 
 
 T = TypeVar("T")
@@ -72,7 +74,37 @@ class Interface(Generic[T]):
         data.raise_for_status()
         return Addon(self, data.json())
 
+    def get_addons(self, *ids: int) -> list[Addon]:
+        data = self._session.post(self.BASE_URL + "/addon", json=list(ids))
+        data.raise_for_status()
+        return [Addon(self, d) for d in data.json()]
+
+    def search(self, name: str | None = None, *,
+        section_id: int = 6,
+        category: Category | None = None,
+        game_version: str | None = None,
+        index: int = 0,
+        per_page: int = 25,
+        sort: SortType = SortType.FEATURED
+    ) -> list[Addon]:
+        params: dict[str, Any] = {"gameId": self.game_id, "sectionId": section_id,
+                                  "index": index, "pageSize": per_page, "sort": sort.value}
+        if name:
+            params['searchFilter'] = name
+        if category:
+            params['categoryId'] = category.id
+        if game_version:
+            params['gameVersion'] = game_version
+
+        url = self.BASE_URL + "/addon/search?" + urlencode(params)
+        data = self._session.get(url)
+        data.raise_for_status()
+        return [Addon(self, d) for d in data.json()]
+
 
 def Minecraft():
     sections = NamedTuple("Minecraft", [('mods', int), ('modpacks', int), ('texture_packs', int), ('worlds', int)])
     return Interface(432, sections(6, 4471, 12, 17))
+
+def custom_interface(game_id: int, section_ids: T) -> Interface[T]:
+    return Interface[T](game_id, section_ids)

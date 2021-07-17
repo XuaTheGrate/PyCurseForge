@@ -23,7 +23,6 @@ DEALINGS IN THE SOFTWARE.
 """
 from __future__ import annotations
 
-import datetime
 from typing import Any, TYPE_CHECKING
 
 from .attachments import Attachment
@@ -53,7 +52,8 @@ class Addon:
         self.created_at = from_iso_format(data['dateCreated'])
         self.released_at = from_iso_format(data['dateReleased'])
         self.modified_at = from_iso_format(data['dateModified'])
-        self.modloaders: list[Modloader] = data['modLoaders']
+        self.modloaders: list[Modloader] = data.get("modLoaders", [])
+        self.downloads: int = round(data['downloadCount'])
 
         self.categories: list[Category] = [interface._store_category(d) for d in data['categories']]
 

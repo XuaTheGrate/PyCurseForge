@@ -1,11 +1,9 @@
 from setuptools import setup
 
-print("-"*20, "This package is a W.I.P and currently does nothing. See the source here: https://github.com/XuaTheGrate/PyCurseForge", "-"*20, sep='\n')
-
 #with open("requirements.txt") as f:
 #    requirements = f.readlines()
 
-version = "1.0.0a0"
+version = "1.0.0"
 
 with open("README.md") as f:
     readme = f.read()

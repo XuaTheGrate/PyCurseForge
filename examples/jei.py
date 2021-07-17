@@ -22,12 +22,15 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
-import datetime
+import os
+import curseforge
 
-__all__ = ['from_iso_format']
+mc = curseforge.Minecraft()
 
-def from_iso_format(string: str) -> datetime.datetime:
-    try:
-        return datetime.datetime.strptime(string.split('.')[0].rstrip("Z"), "%Y-%m-%dT%H:%M:%S")
-    except ValueError:
-        raise ValueError(f"failed to convert {string!r} from ISO format") from None
+jei = mc.get_addon(238222)
+# you can also use `mc.search("jei")[0]`
+
+if not os.path.exists("downloads"):
+    os.mkdir("downloads")
+
+jei.latest_file.save("downloads/{.default_filename}")

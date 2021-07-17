@@ -22,12 +22,11 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
-import datetime
+from pprint import pprint
 
-__all__ = ['from_iso_format']
+import curseforge
 
-def from_iso_format(string: str) -> datetime.datetime:
-    try:
-        return datetime.datetime.strptime(string.split('.')[0].rstrip("Z"), "%Y-%m-%dT%H:%M:%S")
-    except ValueError:
-        raise ValueError(f"failed to convert {string!r} from ISO format") from None
+mc = curseforge.Minecraft()
+
+mods = mc.search(game_version="1.12.2", per_page=5, section_id=mc.section_ids.texture_packs)
+pprint(mods)
