@@ -1,13 +1,18 @@
 from setuptools import setup
 
-version = "1.0.0"
+version = "1.0.0-2"
+
+import os
+
+with open("requirements.txt") as f:
+    requires = f.readlines()
 
 with open("README.md") as f:
     readme = f.read()
 
 setup(
     name='PyCurseForge',
-    install_requires=['requests==2.26.0'],
+    install_requires=requires,
     author='XuaTheGrate',
     url='https://github.com/XuaTheGrate/PyCurseForge',
     version=version,
