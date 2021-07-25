@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 version = "1.0.0-3"
 
@@ -16,7 +16,7 @@ setup(
     author='XuaTheGrate',
     url='https://github.com/XuaTheGrate/PyCurseForge',
     version=version,
-    packages=['curseforge'],
+    packages=find_packages(),
     license='MIT',
     description='A python wrapper for the (hidden) CurseForge API',
     long_description=readme,
